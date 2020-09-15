@@ -1,4 +1,5 @@
 const { nanoid } = require('nanoid');
+const rateLimit = require("express-rate-limit");
 
 const schema = require('./urls.schema');
 const urls = require('./urls.model');
@@ -54,8 +55,14 @@ const existingSlug = async (req, res, next) => {
   }
 };
 
+const rateLimiter = () => rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+});
+
 module.exports = {
   validateSchema,
   availableSlug,
   existingSlug,
+  rateLimiter,
 };
