@@ -1,5 +1,6 @@
 const { nanoid } = require('nanoid');
-const rateLimit = require("express-rate-limit");
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
 
 const schema = require('./urls.schema');
 const urls = require('./urls.model');
@@ -60,9 +61,16 @@ const rateLimiter = () => rateLimit({
   max: 10,
 });
 
+const speedLimiter = () => slowDown({
+  windowMs: 60 * 1000,
+  delayAfter: 5,
+  delayMs: 1000,
+});
+
 module.exports = {
   validateSchema,
   availableSlug,
   existingSlug,
   rateLimiter,
+  speedLimiter,
 };

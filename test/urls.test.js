@@ -98,6 +98,10 @@ describe('POST /', () => {
       .expect(409);
     expect(response.body.message).to.equal('Slug is already in use');
   });
+
+  it('should not allow more than 10 request per minute', async () => {
+    // TODO : Test the request limiter
+  });
 });
 
 describe('GET /:id', () => {

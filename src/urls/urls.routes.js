@@ -11,6 +11,7 @@ router.get('/:slug', middlewares.existingSlug, controller.redirect);
 // POST /
 router.post(
   '/',
+  middlewares.speedLimiter(),
   middlewares.rateLimiter(),
   middlewares.validateSchema,
   middlewares.availableSlug,

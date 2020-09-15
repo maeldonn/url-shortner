@@ -9,6 +9,8 @@ const urls = require('./urls/urls.routes');
 
 const app = express();
 
+app.enable('trust proxy');
+
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
