@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortner</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>URL Shortner</h1>
+  </header>
+  <main id="app">
+    <form @submit.prevent="getShortUrl">
+      <label for="url">URL:</label>
+      <input v-model="url" name="url" id="url" type="url" required>
+      <button>GET A SHORT URL</button>
+    </form>
+    <p v-if="errorMessage">{{errorMessage}}</p>
+  </main>
+  <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
