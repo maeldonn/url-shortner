@@ -6,7 +6,7 @@ const createShortUrl = async (req, res, next) => {
   try {
     const createdUrl = await urls.insert(req.body);
     const apiUrl = process.env.NODE_ENV === 'production' ? process.env.API_URL : `localhost:${process.env.PORT || 5000}/`;
-    res.json({
+    res.status(201).json({
       ...createdUrl,
       link: `${apiUrl}${createdUrl.slug}`,
     });
