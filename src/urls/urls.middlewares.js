@@ -65,7 +65,7 @@ const rateLimiter = () => rateLimit({
 const speedLimiter = () => slowDown({
   windowMs: 60 * 1000,
   delayAfter: 5,
-  delayMs: 1000,
+  delayMs: process.env.NODE_ENV === 'test' ? 0 : 1000,
 });
 
 module.exports = {
