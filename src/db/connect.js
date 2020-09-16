@@ -6,9 +6,9 @@ const dbUrl = process.env.NODE_ENV === 'test'
 
 const connectToDatabase = () => mongoose
   .connect(dbUrl, {
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  })
-  .then(() => console.log('Connexion to MongoDB successful !'));
+  });
 
 module.exports = connectToDatabase;
