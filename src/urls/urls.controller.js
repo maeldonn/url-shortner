@@ -1,14 +1,14 @@
-const urls = require('./urls.model');
+const Url = require('./urls.model');
 
 const redirect = (req, res) => res.redirect(req.url.url);
 
 const createShortUrl = async (req, res, next) => {
   try {
-    const createdUrl = await urls.insert(req.body);
+    await new Url(req.body).save();
     const apiUrl = process.env.NODE_ENV === 'production' ? process.env.API_URL : `localhost:${process.env.PORT || 5000}/`;
     res.status(201).json({
-      ...createdUrl,
-      link: `${apiUrl}${createdUrl.slug}`,
+      ...req.body,
+      link: `${apiUrl}${req.body.slug}`,
     });
   } catch (error) {
     // If generated nanoid is already used

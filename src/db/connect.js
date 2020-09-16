@@ -1,7 +1,14 @@
-const monk = require('monk');
+const mongoose = require('mongoose');
 
-const dbUrl = process.env.NODE_ENV === 'test' ? process.env.TEST_DB_URL : process.env.DB_URL;
+const dbUrl = process.env.NODE_ENV === 'test'
+  ? process.env.TEST_DB_URL
+  : process.env.DB_URL;
 
-const db = monk(dbUrl);
+const connectToDatabase = () => mongoose
+  .connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Connexion to MongoDB successful !'));
 
-module.exports = db;
+module.exports = connectToDatabase;

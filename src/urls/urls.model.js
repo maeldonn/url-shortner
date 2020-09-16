@@ -1,6 +1,13 @@
-const db = require('../db/connect');
+const mongoose = require('mongoose');
 
-const urls = db.get('urls');
-urls.createIndex('slug', { unique: true });
+const Url = mongoose.Schema(
+  {
+    url: { type: String, required: true },
+    slug: { type: String, required: true },
+  },
+  {
+    versionKey: false,
+  },
+);
 
-module.exports = urls;
+module.exports = mongoose.model('urls', Url);

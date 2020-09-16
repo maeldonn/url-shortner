@@ -6,7 +6,9 @@ require('dotenv').config();
 
 const middlewares = require('./middlewares');
 const urls = require('./urls/urls.routes');
+const connectToDatabase = require('./db/connect');
 
+connectToDatabase();
 const app = express();
 
 app.enable('trust proxy');
