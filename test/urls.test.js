@@ -1,16 +1,15 @@
 const request = require('supertest');
 const { expect } = require('chai');
 
-const urls = require('../src/urls/urls.model');
+const Url = require('../src/urls/urls.model');
 const app = require('../src/app');
 
 describe('POST /', () => {
   before(async () => {
-    await urls.remove({});
+    await Url.collection.drop();
   });
 
   it('should require an url', async () => {
-    console.log(2);
     const response = await request(app)
       .post('/')
       .send({})
@@ -80,7 +79,6 @@ describe('POST /', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(201);
-    expect(response.body).to.have.property('_id');
     expect(response.body).to.have.property('url');
     expect(response.body).to.have.property('slug');
     expect(response.body).to.have.property('link');
