@@ -104,13 +104,12 @@ describe('POST /', () => {
 
 describe('GET /:id', () => {
   it('should respond with a 404', async () => {
-    const response = await request(app)
+    await request(app)
       .get('/12344')
       .send({})
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
+      .expect('Content-Type', 'text/html; charset=UTF-8')
       .expect(404);
-    expect(response.body.message).to.equal("Slug doesn't exist");
   });
 
   it('should redirect to the correct url', async () => {
@@ -119,5 +118,16 @@ describe('GET /:id', () => {
       .send({})
       .set('Accept', 'application/json')
       .expect(302);
+  });
+});
+
+describe('GET /*/*', () => {
+  it('should respond with a 404', async () => {
+    await request(app)
+      .get('/12344')
+      .send({})
+      .set('Accept', 'application/json')
+      .expect('Content-Type', 'text/html; charset=UTF-8')
+      .expect(404);
   });
 });
