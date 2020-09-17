@@ -1,8 +1,7 @@
+const path = require('path');
+
 const notFound = (req, res, next) => {
-  res.status(404);
-  // TODO: Send 404 page
-  const error = new Error(`🔍 - Not Found - ${req.originalUrl}`);
-  next(error);
+  res.status(404).sendFile(path.resolve('public/index.html'));
 };
 
 /* eslint-disable no-unused-vars */
@@ -10,14 +9,10 @@ const errorHandler = (err, req, res, next) => {
   /* eslint-enable no-unused-vars */
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
-  if (process.env.NODE_ENV === 'production') {
-    res.json({ message: err.message });
-  } else {
-    res.json({
-      message: err.message,
-      stack: err.stack,
-    });
-  }
+  res.json({
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+  });
 };
 
 module.exports = {

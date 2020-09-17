@@ -1,6 +1,7 @@
 const { nanoid } = require('nanoid');
 const rateLimit = require('express-rate-limit');
 const slowDown = require('express-slow-down');
+const path = require('path');
 
 const schema = require('./urls.schema');
 const Url = require('./urls.model');
@@ -49,9 +50,7 @@ const existingSlug = async (req, res, next) => {
       req.url = url;
       return next();
     }
-    res.status(404);
-    // TODO: Send 404 page
-    throw new Error("Slug doesn't exist");
+    return res.status(404).sendFile(path.resolve('public/index.html'));
   } catch (error) {
     return next(error);
   }

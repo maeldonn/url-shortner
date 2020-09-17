@@ -6,12 +6,11 @@
 
 # Client side
 
-* [ ] Validate data
-* [ ] 
-* [ ] 
-* [ ] Use vue.min
+* [ ] Styles
+* [ ] 404
 
 
 # Server side
 
-* [ ] Use vue.min
+* [ ] 404
+* [ ] Stop request to the server from the outside (cors)

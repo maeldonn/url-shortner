@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const helmet = require('helmet');
+// const helmet = require('helmet'); // TODO: Fix Content-Security-Policy errors
 
 require('dotenv').config();
 
@@ -14,7 +14,7 @@ const app = express();
 app.enable('trust proxy');
 
 app.use(morgan('dev'));
-app.use(helmet());
+// app.use(helmet()); // TODO: Fix Content-Security-Policy errors
 app.use(express.json());
 app.use(express.static('./public'));
 
