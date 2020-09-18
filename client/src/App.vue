@@ -8,8 +8,6 @@
 * {
   margin: 0;
   padding: 0;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
   box-sizing:border-box;
 }
 
@@ -20,8 +18,10 @@ body {
 
 #app {
   height: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000000f0;
+  color: #ffffff;
 }
 </style>

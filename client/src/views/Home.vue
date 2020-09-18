@@ -1,16 +1,17 @@
 <template>
   <div class="home">
     <header>
-      <h1 class="img">URL Shortner</h1>
+      <!-- <h1 class="img">URLkiller</h1> -->
+      <img class="logo" src="../assets/logo.png">
     </header>
     <section>
-      <form class="form" v-if="!created" @submit.prevent="createShortUrl">
+      <form v-if="!created" @submit.prevent="createShortUrl">
         <div v-if="errorMessage" class="error">
           {{errorMessage}}
         </div>
-        <input class="input" type="url" id="url" v-model="url" placeholder="enter a url" required />
-        <input class="input" id="slug" v-model="slug" maxlength="5" placeholder="enter a slug" />
-        <button class="create">CREATE SHORT URL</button>
+        <input type="url" id="url" v-model="url" placeholder="enter a url" required />
+        <input id="slug" v-model="slug" maxlength="5" placeholder="enter a slug (optional)" />
+        <button class="create">KILL URL</button>
       </form>
       <div v-if="created" class="created">
         <div class="result">
@@ -20,7 +21,7 @@
         <button class="back" @click="reset">CREATE A NEW URL</button>
       </div>
     </section>
-    <footer class="footer">
+    <footer>
       <p>Made with ❤️ by <a href="https://maeldonn.github.io/" target="_blank">maeldonn</a></p>
     </footer>
   </div>
@@ -126,53 +127,74 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 header {
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
+  margin: 1rem 1rem 0 1rem;;
 }
 
-.img {
-  font-size: 4rem;
+.logo {
+  max-width: 100%;
+  width: 400px;
 }
 
-.form {
+form {
   display: flex;
   flex-direction: column;
 }
 
+input,
+.create,
 .error {
-  background: #A63446;
+  margin: 1rem 2rem;
+  max-width: 100%;
+  font-family: inherit;
+}
+
+.error {
+  background: #b33a3a;
   padding: 1rem 2rem;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-.input,
-.create,
-.link,
-.back {
-  margin: 1rem 0;
-  max-width: 100%;
-}
-
-.input,
-.link {
+input {
   padding-bottom: 1rem;
+  font-size: 1.5rem;
+  color: inherit;
+  background: none;
+  border: none;
+  border-bottom: 4px solid #ffffff;
   text-align: center;
-  font-size: 1.25rem;
+  transition: border-bottom-color 0.2s ease-in-out;
 }
 
-.create,
-.back {
+input:focus {
+  outline: none;
+  border-bottom-color: #ff9900;
+}
+
+input::placeholder {
+  opacity: 0.7;
+}
+
+.create {
   cursor: pointer;
-  font-size: 1.15rem;
+  font-size: 1.5rem;
   padding: 0.75em 1.25rem;
+  background-color: #ff9900;
+  box-shadow: 3px 3px 0 0 #ffffff;
+  border: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.create:hover {
+  box-shadow: 0 0 0 0 #ffffff;
 }
 
 .created {
@@ -188,12 +210,12 @@ header {
   align-items: center;
 }
 
-.footer {
+footer {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
 }
-.footer a {
+footer a {
   text-decoration: none;
   color: inherit;
 }
