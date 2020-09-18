@@ -1,7 +1,7 @@
 const path = require('path');
 
-const notFound = (req, res, next) => {
-  res.status(404).sendFile(path.resolve('public/index.html'));
+const notFound = (req, res) => {
+  res.status(404).sendFile(path.resolve('client/dist/index.html'));
 };
 
 /* eslint-disable no-unused-vars */

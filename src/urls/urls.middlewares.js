@@ -50,7 +50,7 @@ const existingSlug = async (req, res, next) => {
       req.url = url;
       return next();
     }
-    return res.status(404).sendFile(path.resolve('public/index.html'));
+    return res.status(404).sendFile(path.resolve('client/dist/index.html'));
   } catch (error) {
     return next(error);
   }
