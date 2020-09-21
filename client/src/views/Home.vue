@@ -1,28 +1,26 @@
 <template>
   <div class="home">
     <header>
-      <!-- <h1 class="img">URLkiller</h1> -->
-      <img class="logo" src="../assets/logo.png">
+      <img class="logo" src="../assets/logo.png" />
     </header>
-    <section>
-      <form v-if="!created" @submit.prevent="createShortUrl">
-        <div v-if="errorMessage" class="error">
-          {{errorMessage}}
-        </div>
-        <input type="url" id="url" v-model="url" placeholder="enter a url" required />
+    <section v-if="!created">
+      <form @submit.prevent="createShortUrl">
+        <div v-if="errorMessage" class="error">{{errorMessage}}</div>
+        <input type="url" id="url" v-model="url" placeholder="enter a url" />
         <input id="slug" v-model="slug" maxlength="5" placeholder="enter a slug (optional)" />
-        <button class="create">KILL URL</button>
+        <button>KILL URL</button>
       </form>
-      <div v-if="created" class="created">
-        <div class="result">
-          <input class="link" v-model="link"/>
-          <button class="copy" v-clipboard:copy="link">Copy</button>
-        </div>
-        <button class="back" @click="reset">CREATE A NEW URL</button>
-      </div>
+    </section>
+    <section v-if="created" class="created">
+      <input v-model="link" />
+      <button v-clipboard:copy="link">COPY</button>
+      <button @click="reset">CREATE A NEW URL</button>
     </section>
     <footer>
-      <p>Made with ❤️ by <a href="https://maeldonn.github.io/" target="_blank">maeldonn</a></p>
+      <p>
+        Made with ❤️ by
+        <a href="https://maeldonn.github.io/" target="_blank">maeldonn</a>
+      </p>
     </footer>
   </div>
 </template>
@@ -134,7 +132,7 @@ export default {
 header {
   display: flex;
   justify-content: center;
-  margin: 1rem 1rem 0 1rem;;
+  margin: 1rem 1rem 0 1rem;
 }
 
 .logo {
@@ -148,9 +146,9 @@ form {
 }
 
 input,
-.create,
+button,
 .error {
-  margin: 1rem 2rem;
+  margin: 0.5rem 2rem;
   max-width: 100%;
   font-family: inherit;
 }
@@ -172,6 +170,7 @@ input {
   border-bottom: 4px solid #ffffff;
   text-align: center;
   transition: border-bottom-color 0.2s ease-in-out;
+  padding: 0.75em 1.25rem;
 }
 
 input:focus {
@@ -183,7 +182,7 @@ input::placeholder {
   opacity: 0.7;
 }
 
-.create {
+button {
   cursor: pointer;
   font-size: 1.5rem;
   padding: 0.75em 1.25rem;
@@ -193,7 +192,7 @@ input::placeholder {
   transition: box-shadow 0.2s ease-in-out;
 }
 
-.create:hover {
+button:hover {
   box-shadow: 0 0 0 0 #ffffff;
 }
 
@@ -202,12 +201,7 @@ input::placeholder {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.result {
-  display: flex;
-  justify-content: baseline;
-  align-items: center;
+  max-width: 80%;
 }
 
 footer {
@@ -215,9 +209,9 @@ footer {
   justify-content: center;
   margin-bottom: 2rem;
 }
+
 footer a {
   text-decoration: none;
   color: inherit;
 }
-
 </style>
