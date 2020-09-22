@@ -3,7 +3,7 @@
     <header>
       <img class="logo" src="../assets/logo.png" />
     </header>
-    <section v-if="!created">
+    <section v-if="!created" class="form">
       <form @submit.prevent="createShortUrl">
         <div v-if="errorMessage" class="error">{{errorMessage}}</div>
         <input type="url" id="url" v-model="url" placeholder="enter a url" />
@@ -14,7 +14,7 @@
     <section v-if="created" class="created">
       <input v-model="link" />
       <button v-clipboard:copy="link">COPY</button>
-      <button @click="reset">CREATE A NEW URL</button>
+      <button @click="reset">GO BACK</button>
     </section>
     <footer>
       <p>
@@ -133,11 +133,16 @@ header {
   display: flex;
   justify-content: center;
   margin: 1rem 1rem 0 1rem;
+  user-select: none;
 }
 
 .logo {
+  max-width: 70%;
+  width: 500px;
+}
+
+.form {
   max-width: 100%;
-  width: 400px;
 }
 
 form {
@@ -157,7 +162,6 @@ button,
   background: #b33a3a;
   padding: 1rem 2rem;
   color: #ffffff;
-  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -170,7 +174,7 @@ input {
   border-bottom: 4px solid #ffffff;
   text-align: center;
   transition: border-bottom-color 0.2s ease-in-out;
-  padding: 0.75em 1.25rem;
+  padding: 0.75em 0.5rem;
 }
 
 input:focus {
@@ -183,6 +187,7 @@ input::placeholder {
 }
 
 button {
+  margin-top: 3rem;
   cursor: pointer;
   font-size: 1.5rem;
   padding: 0.75em 1.25rem;
@@ -207,7 +212,7 @@ button:hover {
 footer {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin: 1rem 0;
 }
 
 footer a {

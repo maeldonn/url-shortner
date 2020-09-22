@@ -6,7 +6,7 @@
     <section>
       <h1>4<span>0</span>4</h1>
       <router-link class="btn btn-primary btn-lg" :to="{ name: 'Home' }" role="button">
-        <button>Go back Home</button>
+        <button>GO BACK</button>
       </router-link>
     </section>
     <footer>
@@ -31,11 +31,12 @@ header {
   display: flex;
   justify-content: center;
   margin: 1rem 1rem 0 1rem;
+  user-select: none;
 }
 
 .logo {
-  max-width: 100%;
-  width: 400px;
+  max-width: 70%;
+  width: 500px;
 }
 
 h1 {
@@ -49,34 +50,6 @@ h1 span {
   color: #ff9900;
 }
 
-input,
-button {
-  margin: 0.5rem 2rem;
-  max-width: 100%;
-  font-family: inherit;
-}
-
-input {
-  padding-bottom: 1rem;
-  font-size: 1.5rem;
-  color: inherit;
-  background: none;
-  border: none;
-  border-bottom: 4px solid #ffffff;
-  text-align: center;
-  transition: border-bottom-color 0.2s ease-in-out;
-  padding: 0.75em 1.25rem;
-}
-
-input:focus {
-  outline: none;
-  border-bottom-color: #ff9900;
-}
-
-input::placeholder {
-  opacity: 0.7;
-}
-
 button {
   cursor: pointer;
   font-size: 1.5rem;
@@ -85,6 +58,9 @@ button {
   box-shadow: 3px 3px 0 0 #ffffff;
   border: none;
   transition: box-shadow 0.2s ease-in-out;
+  margin: 3rem 2rem 0.5rem 2rem;
+  max-width: 100%;
+  font-family: inherit;
 }
 
 button:hover {
@@ -94,7 +70,7 @@ button:hover {
 footer {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin: 1rem 0;
 }
 
 footer a {
