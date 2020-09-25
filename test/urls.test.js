@@ -1,12 +1,12 @@
 const request = require('supertest');
 const { expect } = require('chai');
 
-const Url = require('../src/urls/urls.model');
+const models = require('../src/urls/urls.models');
 const app = require('../src/app');
 
 describe('POST /', () => {
   before(async () => {
-    await Url.collection.drop();
+    await models.Urls.collection.drop();
   });
 
   it('should require an url', async () => {
@@ -99,6 +99,10 @@ describe('POST /', () => {
 
   it('should not allow more than 10 request per minute', async () => {
     // TODO : Test the request limiter
+  });
+
+  it('should not allow more than 10 request per minute', async () => {
+    // TODO : Test the url lifetime
   });
 });
 
