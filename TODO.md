@@ -1,9 +1,5 @@
 # Client side
 
-* [ ] Change name everywhere (in app + package + tab name + github)
-* [ ] Create a component for Header + Footer
-
-
 # Server side
 
 # Miscellaneous

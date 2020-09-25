@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "urlkiller",
   "version": "1.0.0",
   "description": "Url shortner - API",
   "main": "index.js",
