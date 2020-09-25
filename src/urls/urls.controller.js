@@ -1,10 +1,13 @@
-const Url = require('./urls.model');
+const models = require('./urls.models');
 
 const redirect = (req, res) => res.redirect(req.url.url);
 
 const createShortUrl = async (req, res, next) => {
   try {
-    await new Url(req.body).save();
+    await new models.Urls({
+      ...req.body,
+      date: Date.now(),
+    }).save();
     const apiUrl = process.env.NODE_ENV === 'production' ? process.env.API_URL : `localhost:${process.env.PORT || 5000}/`;
     res.status(201).json({
       ...req.body,

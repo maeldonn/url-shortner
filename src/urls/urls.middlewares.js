@@ -4,7 +4,18 @@ const slowDown = require('express-slow-down');
 const path = require('path');
 
 const schema = require('./urls.schema');
-const Url = require('./urls.model');
+const models = require('./urls.models');
+
+const rateLimiter = () => rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+});
+
+const speedLimiter = () => slowDown({
+  windowMs: 60 * 1000,
+  delayAfter: 5,
+  delayMs: process.env.NODE_ENV === 'test' ? 0 : 1000,
+});
 
 const validateSchema = (req, res, next) => {
   const value = schema.validate(req.body);
@@ -21,11 +32,33 @@ const validateSchema = (req, res, next) => {
   }
 };
 
+const removeOldUrls = async (req, res, next) => {
+  try {
+    const cacheTime = await models.Cache.findOne({});
+    if (cacheTime) {
+      // Check every hours if they are urls to delete
+      if (cacheTime.time > Date.now() - 60 * 60 * 1000) {
+        next();
+      } else {
+        // Remove urls older than 3 days
+        await models.Urls.remove({ date: { $lte: Date.now() - 3 * 24 * 60 * 60 * 1000 } });
+        await models.Cache.updateOne({}, { time: Date.now() });
+        next();
+      }
+    } else {
+      await new models.Cache({ time: Date.now() }).save();
+      next();
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const availableSlug = async (req, res, next) => {
   const { slug } = req.body;
   try {
     if (slug) {
-      const result = await Url.findOne({ slug });
+      const result = await models.Urls.findOne({ slug });
       if (result) {
         throw new Error('Slug is already in use');
       } else {
@@ -45,7 +78,7 @@ const availableSlug = async (req, res, next) => {
 const existingSlug = async (req, res, next) => {
   const { slug } = req.params;
   try {
-    const url = await Url.findOne({ slug });
+    const url = await models.Urls.findOne({ slug });
     if (url) {
       req.url = url;
       return next();
@@ -56,21 +89,11 @@ const existingSlug = async (req, res, next) => {
   }
 };
 
-const rateLimiter = () => rateLimit({
-  windowMs: 60 * 1000,
-  max: 10,
-});
-
-const speedLimiter = () => slowDown({
-  windowMs: 60 * 1000,
-  delayAfter: 5,
-  delayMs: process.env.NODE_ENV === 'test' ? 0 : 1000,
-});
-
 module.exports = {
-  validateSchema,
-  availableSlug,
-  existingSlug,
   rateLimiter,
   speedLimiter,
+  validateSchema,
+  removeOldUrls,
+  availableSlug,
+  existingSlug,
 };
