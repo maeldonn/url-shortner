@@ -1,22 +1,28 @@
 <template>
   <div class="not-found">
-    <header>
-      <img class="logo" src="../assets/logo.png" />
-    </header>
+    <Header />
     <section>
       <h1>4<span>0</span>4</h1>
       <router-link class="btn btn-primary btn-lg" :to="{ name: 'Home' }" role="button">
         <button>GO BACK</button>
       </router-link>
     </section>
-    <footer>
-      <p>
-        Made with ❤️ by
-        <a href="https://maeldonn.github.io/" target="_blank">maeldonn</a>
-      </p>
-    </footer>
+    <Footer />
   </div>
 </template>
+
+<script>
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
+
+export default {
+  name: 'NotFound',
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
 
 <style scoped>
 .not-found {
@@ -34,25 +40,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin: 1rem 1rem 0 1rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.logo {
-  max-width: 70%;
-  width: 500px;
 }
 
 h1 {
@@ -87,20 +74,5 @@ button {
 button:hover {
   -webkit-box-shadow: 0 0 0 0 #ffffff;
           box-shadow: 0 0 0 0 #ffffff;
-}
-
-footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin: 1rem 0;
-}
-
-footer a {
-  text-decoration: none;
-  color: inherit;
 }
 </style>

@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-    <header>
-      <img class="logo" src="../assets/logo.png" />
-    </header>
+    <Header />
     <section v-if="!created && !isLoading" class="form">
       <form @submit.prevent="createShortUrl">
         <div v-if="errorMessage" class="error">{{errorMessage}}</div>
@@ -19,16 +17,14 @@
       <button v-clipboard:copy="link">COPY</button>
       <button @click="reset">GO BACK</button>
     </section>
-    <footer>
-      <p>
-        Made with ❤️ by
-        <a href="https://maeldonn.github.io/" target="_blank">maeldonn</a>
-      </p>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
+
 const axios = require('axios');
 const Joi = require('joi');
 
@@ -47,6 +43,10 @@ const schema = Joi.object({
 
 export default {
   name: 'Home',
+  components: {
+    Header,
+    Footer,
+  },
   data: () => ({
     url: '',
     slug: '',
@@ -146,26 +146,6 @@ export default {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin: 1rem 1rem 0 1rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.logo {
-  max-width: 70%;
-  width: 500px;
-  image-rendering: -moz-crisp-edges;
 }
 
 .form {
@@ -272,20 +252,5 @@ button:hover {
       -ms-flex-align: center;
           align-items: center;
   max-width: 80%;
-}
-
-footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin: 1rem 0;
-}
-
-footer a {
-  text-decoration: none;
-  color: inherit;
 }
 </style>
