@@ -10,3 +10,4 @@
 # Miscellaneous
 
 * [ ] Edit README.md
+* [ ] Domain name

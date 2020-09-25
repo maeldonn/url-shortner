@@ -3,7 +3,7 @@
     <header>
       <img class="logo" src="../assets/logo.png" />
     </header>
-    <section v-if="!created" class="form">
+    <section v-if="!created && !isLoading" class="form">
       <form @submit.prevent="createShortUrl">
         <div v-if="errorMessage" class="error">{{errorMessage}}</div>
         <input type="url" id="url" v-model="url" placeholder="enter a url" />
@@ -11,7 +11,10 @@
         <button>KILL URL</button>
       </form>
     </section>
-    <section v-if="created" class="created">
+    <section v-if="isLoading">
+      <img src="../assets/spinner.svg" alt="">
+    </section>
+    <section v-if="created && !isLoading" class="created">
       <input v-model="link" />
       <button v-clipboard:copy="link">COPY</button>
       <button @click="reset">GO BACK</button>
@@ -50,7 +53,7 @@ export default {
     link: null,
     created: false,
     errorMessage: '',
-    isLoading: false, // TODO: Add a loader
+    isLoading: false,
   }),
   watch: {
     url: {
@@ -67,6 +70,7 @@ export default {
   methods: {
     createShortUrl() {
       if (this.validateData()) {
+        this.isLoading = true;
         axios
           .post(
             '/',
@@ -81,17 +85,23 @@ export default {
             },
           )
           .then((response) => {
-            this.link = response.data.link;
-            this.created = true;
+            setTimeout(() => {
+              this.link = response.data.link;
+              this.created = true;
+              this.isLoading = false;
+            }, 1000);
           })
           .catch((error) => {
-            if (error.message.includes('409')) {
-              this.errorMessage = 'Slug is already in use';
-            } else if (error.message.includes('429')) {
-              this.errorMessage = 'You are sending too many requests. Try again in 60 seconds.';
-            } else {
-              this.errorMessage = 'Impossible to create a short url. Please retry later.';
-            }
+            setTimeout(() => {
+              if (error.message.includes('409')) {
+                this.errorMessage = 'Slug is already in use';
+              } else if (error.message.includes('429')) {
+                this.errorMessage = 'You are sending too many requests. Try again in 60 seconds.';
+              } else {
+                this.errorMessage = 'Impossible to create a short url. Please retry later.';
+              }
+              this.isLoading = false;
+            }, 1000);
           });
       }
     },
