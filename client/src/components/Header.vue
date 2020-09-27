@@ -12,12 +12,7 @@ export default {
 
 <style>
 header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  text-align: center;
   margin: 1rem 1rem 0 1rem;
   -webkit-user-select: none;
      -moz-user-select: none;
