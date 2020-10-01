@@ -41,3 +41,8 @@ Now you can run the application by running the command :
 ```sh
 npm start
 ```
+
+## Assets 
+
+
+Loading icon from [loading.io](https://loading.io/)
